@@ -211,8 +211,8 @@ const ModalTambahAdminCabang = ({ isOpen, onClose, branchToEdit, onSucces }) => 
 
     try {
       const url = isEditMode
-        ? `/api/admin/${branchToEdit.id}?_method=PUT`
-        : "/api/admin";
+        ? `${process.env.REACT_APP_API_URL}/admin/${branchToEdit.id}?_method=PUT`
+        : `${process.env.REACT_APP_API_URL}/admin`;
   
       const response = await axios.post(url, formPayload, { headers });
   

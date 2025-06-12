@@ -71,7 +71,7 @@ import DataPendataan from "./src/pages/admin/Pendataan";
 import DataAbsensii from "./src/pages/admin/Absensi";
 import DataSurat from "./src/pages/admin/Surat";
 import DataRFID from "./src/pages/admin/RFID";
-import DataPiket from "./src/pages/admin/Piket";
+import DataPiket from "./src/pages/admin/piket";
 import DataJamkantor from "./src/pages/admin/Jam-kantor";
 import ProjectCard from "./src/components/cards/ProjectCard";
 import SuperadminLayout from "./src/layout/SuperadminLayout";

@@ -1,0 +1,246 @@
+/* Custom styling for FullCalendar */
+.calendar-wrapper {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header section - Outside the card */
+.calendar-header {
+  margin-bottom: 1.5rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.center-section {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.right-section {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.month-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+  margin-left: 20px;
+}
+
+.add-event-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+}
+
+.plus-icon {
+  margin-right: 4px;
+  font-size: 16px;
+}
+
+.view-options {
+  display: flex;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.view-btn {
+  padding: 6px 16px;
+  background: white;
+  border: none;
+  font-size: 14px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.view-btn.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.navigation-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.nav-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2px;
+  font-size: 18px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.today-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 14px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* Calendar container - White card */
+.calendar-container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+/* Table styles */
+.fc {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.fc .fc-scrollgrid {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px;
+}
+
+/* Day headers (Mon, Tue, etc.) */
+.fc .fc-col-header-cell {
+  background-color: white;
+  padding: 18px 0;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+/* Day cells */
+.fc .fc-daygrid-day {
+  border: 1px solid #e5e7eb;
+  min-height: 200px; /* Make cells taller */
+}
+
+.fc-view {
+  min-height: 600px; /* Ensure minimum height for the calendar */
+}
+
+.fc-daygrid-day-frame {
+  min-height: 200px; /* Make day frames taller */
+  padding: 10px; /* Add more padding inside each day cell */
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: white;
+}
+
+.fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Day numbers */
+.fc .fc-daygrid-day-number {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+  padding: 8px;
+}
+
+/* Gray out days not in current month */
+.fc .fc-day-other .fc-daygrid-day-number {
+  color: #d1d5db;
+}
+
+/* Events */
+.fc-event {
+  border-radius: 4px !important;
+  border: none !important;
+  padding: 3px 8px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  margin-bottom: 3px !important;
+}
+
+/* Different event colors */
+.fc-event-blue {
+  background-color: #E6EFFF !important;
+  color: #3B82F6 !important;
+}
+
+.fc-event-yellow {
+  background-color: #FEF9C3 !important;
+  color: #CA8A04 !important;
+}
+
+.fc-event-red {
+  background-color: #FEE2E2 !important;
+  color: #EF4444 !important;
+}
+
+/* Cell with events indicator */
+.fc .fc-daygrid-day-bottom {
+  padding: 2px;
+  font-size: 11px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .left-section, .center-section, .right-section {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .center-section {
+    justify-content: flex-start;
+    margin: 10px 0;
+  }
+  
+  .right-section {
+    justify-content: flex-start;
+  }
+  
+  .calendar-container {
+    padding: 12px;
+  }
+}

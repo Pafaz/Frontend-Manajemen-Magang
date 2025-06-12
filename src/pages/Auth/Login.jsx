@@ -60,7 +60,7 @@ const Login = () => {
     };
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/login", data);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);
 
       if (response.data.status === "success") {
         const { token, role, user } = response.data.data;

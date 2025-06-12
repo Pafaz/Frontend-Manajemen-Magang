@@ -13,17 +13,12 @@ const MyPartner = () => {
 
   // Konfigurasi API
   const apiUrl = import.meta.env.VITE_API_URL;
-  const token = localStorage.getItem("token");
 
   // Fetch data mitra dari API
   const fetchMitraData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${apiUrl}/mitra-all`, {
-        headers: { 
-          Authorization: `Bearer ${token}` 
-        },
-      });
+      const response = await axios.get(`${apiUrl}/mitra-all`);
 
       if (response.data.status === "success") {
         // Transform data untuk mendapatkan foto profile

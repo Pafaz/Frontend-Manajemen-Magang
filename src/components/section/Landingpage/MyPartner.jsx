@@ -25,8 +25,6 @@ const MyPartner = () => {
         },
       });
 
-      console.log("API Response:", response.data);
-
       if (response.data.status === "success") {
         // Transform data untuk mendapatkan foto profile
         const transformedData = response.data.data.map(mitra => {
@@ -40,7 +38,6 @@ const MyPartner = () => {
           };
         });
 
-        console.log("Transformed Data:", transformedData);
         setData(transformedData);
       } else {
         throw new Error("Unexpected response format");
@@ -55,7 +52,7 @@ const MyPartner = () => {
 
   useEffect(() => {
     fetchMitraData();
-  }, []);
+  }, [apiUrl]);
 
   useEffect(() => {
     if (carousel.current && data.length > 0) {

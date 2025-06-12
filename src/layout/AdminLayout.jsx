@@ -72,7 +72,7 @@ const AdminLayout = () => {
           });
           
           const response = await axios.post(
-            "http://127.0.0.1:8000/api/logout",
+            `${process.env.REACT_APP_API_URL}/logout`,
             {},
             {
               headers: {

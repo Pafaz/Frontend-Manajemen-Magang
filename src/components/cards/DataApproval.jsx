@@ -825,7 +825,7 @@ export default function ApprovalTable() {
                     src={
                       item.user?.foto?.find((f) => f.type === "profile")
                         ?.path
-                        ? `http://127.0.0.1:8000/storage/${
+                        ? `${import.meta.env.VITE_API_URL_FILE}/storage/${
                             item.user.foto.find((f) => f.type === "profile")
                               .path
                           }`
@@ -1412,7 +1412,7 @@ export default function ApprovalTable() {
                           <img
                             src={
                               selectedItem.bukti.path
-                                ? `http://127.0.0.1:8000/storage/${
+                                ? `${import.meta.env.VITE_API_URL_FILE}/storage/${
                                     selectedItem.bukti.path
                                   }`
                                 : "/assets/img/default-avatar.png"

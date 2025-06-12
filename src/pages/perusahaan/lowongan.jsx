@@ -74,7 +74,7 @@ export default function Lowongan() {
         const coverPhoto = cabangFotos.find(foto => foto.type === 'profil_cover');
         
         // Gunakan VITE_API_URL sebagai base URL dan tambahkan /storage/
-        const baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+        const baseURL = import.meta.env.VITE_API_URL_FILE;
         
         jobDetailData.cabang.profilePhotoUrl = profilePhoto ? 
           `${baseURL}/storage/${profilePhoto.path}` : null;
@@ -93,7 +93,7 @@ export default function Lowongan() {
         const profilePhoto = perusahaanFotos.find(foto => foto.type === 'profile');
         const coverPhoto = perusahaanFotos.find(foto => foto.type === 'profil_cover');
         
-        const baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+        const baseURL = import.meta.env.VITE_API_URL_FILE;
         
         jobDetailData.perusahaan.profilePhotoUrl = profilePhoto ? 
           `${baseURL}/storage/${profilePhoto.path}` : null;
@@ -111,7 +111,7 @@ export default function Lowongan() {
         const divisiFotos = jobDetailData.divisi.foto;
         const coverPhoto = divisiFotos.find(foto => foto.type === 'foto_cover');
         
-        const baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+        const baseURL = import.meta.env.VITE_API_URL_FILE;
         
         jobDetailData.divisi.coverPhotoUrl = coverPhoto ? 
           `${baseURL}/storage/${coverPhoto.path}` : null;

@@ -29,7 +29,7 @@ const MyPartner = () => {
             slug: mitra.nama.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
             profileImage: mitra.foto?.find(f => f.type === 'profile')?.path
               ? `${import.meta.env.VITE_API_URL_FILE}/storage/${mitra.foto.find(f => f.type === 'profile').path}`
-              : "/api/placeholder/40/40"
+              : "https://placehold.co/40x40"
           };
         });
 
@@ -114,8 +114,8 @@ const MyPartner = () => {
               alt={company.name}
               className="w-30 h-30 object-contain mb-2 cursor-pointer transform transition-transform hover:scale-105"
               onError={(e) => {
-                if (!e.target.src.includes("/api/placeholder/40/40")) {
-                  e.target.src = "/api/placeholder/40/40";
+                if (!e.target.src.includes("https://placehold.co/40x40")) {
+                  e.target.src = "https://placehold.co/40x40";
                 }
               }}
               onLoad={() => {

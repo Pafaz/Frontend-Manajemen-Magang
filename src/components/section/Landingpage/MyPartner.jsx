@@ -47,7 +47,7 @@ const MyPartner = () => {
 
   useEffect(() => {
     fetchMitraData();
-  }, [apiUrl]);
+  }, []);
 
   useEffect(() => {
     if (carousel.current && data.length > 0) {
@@ -114,8 +114,9 @@ const MyPartner = () => {
               alt={company.name}
               className="w-30 h-30 object-contain mb-2 cursor-pointer transform transition-transform hover:scale-105"
               onError={(e) => {
-                console.error("Image failed to load:", company.profileImage);
-                e.target.src = "/api/placeholder/40/40";
+                if (!e.target.src.includes("/api/placeholder/40/40")) {
+                  e.target.src = "/api/placeholder/40/40";
+                }
               }}
               onLoad={() => {
                 console.log("Image loaded successfully:", company.profileImage);

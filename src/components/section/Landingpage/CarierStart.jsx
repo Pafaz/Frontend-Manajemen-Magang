@@ -255,12 +255,6 @@ export default function JobListingPage() {
   // Render job card dengan debug info
   const renderJobCard = (job) => (
     <article key={job.id} className="relative bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 p-2 pl-20 min-h-56 max-w-sm mx-auto">
-      {/* Debug info - bisa dihapus setelah debugging selesai
-      {process.env.NODE_ENV === 'development' && (
-        <div className="absolute top-2 right-2 bg-red-100 text-red-800 text-xs p-1 rounded">
-          ID: {job.id} | Status: {job.status}
-        </div>
-      )} */}
       
       {/* Company Image */}
       <div className="absolute left-0 top-1/4 -translate-y-1/2 -translate-x-1/4 w-32 h-28">
@@ -328,22 +322,6 @@ export default function JobListingPage() {
 
   return (
     <div className="flex-1">
-      {/* Debug panel - bisa dihapus setelah debugging selesai
-      {process.env.NODE_ENV === 'development' && !loading && (
-        <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <h4 className="font-semibold text-yellow-800">Debug Info:</h4>
-          <p className="text-sm text-yellow-700">
-            Total jobs loaded: {jobVacancies.length} | 
-            Filtered jobs: {filteredJobs.length} | 
-            Current jobs displayed: {currentJobs.length}
-          </p>
-          {jobVacancies.length > 0 && (
-            <div className="mt-2 text-xs text-yellow-600">
-              Jobs order: {jobVacancies.map(job => `#${job.id}(${job.company})`).join(', ')}
-            </div>
-          )}
-        </div>
-      )} */}
       
       {loading && renderLoadingSkeleton()}
       

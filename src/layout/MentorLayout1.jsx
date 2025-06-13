@@ -64,7 +64,7 @@ const SuperadminLayout = () => {
           });
           
           const response = await axios.post(
-            `${process.env.VITE_API_URL}/logout`,
+            `${import.meta.env.VITE_API_URL}/logout`,
             {},
             {
               headers: {

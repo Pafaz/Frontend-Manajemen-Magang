@@ -407,16 +407,6 @@ export default function MeetingScheduleTable() {
           </div>
         )}
       </div>
-
-      {/* Debug Panel - Remove this in production
-      {process.env.NODE_ENV === 'development' && allMeetings.length > 0 && (
-        <div className="fixed bottom-4 right-4 bg-gray-800 text-white p-4 rounded-lg max-w-md max-h-64 overflow-auto z-50">
-          <h4 className="font-bold mb-2">Debug: API Data Structure</h4>
-          <pre className="text-xs whitespace-pre-wrap">
-            {JSON.stringify(allMeetings[0]?.rawData, null, 2)}
-          </pre>
-        </div>
-      )} */}
     </div>
   );
 }

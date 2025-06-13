@@ -161,17 +161,6 @@ export default function AddStudentModal({ isOpen, onClose, mentorId, divisionId,
               <p className="mt-2 text-xs text-red-500">
                 *Daftar menampilkan peserta magang yang belum memiliki mentor di divisi ini
               </p>
-              
-              {/* Debug button - remove in production */}
-              {/* {process.env.NODE_ENV === 'development' && (
-                <button 
-                  type="button" 
-                  onClick={showStudentStructure}
-                  className="mt-2 text-xs text-blue-500 underline"
-                >
-                  Debug data structure
-                </button>
-              )} */}
             </div>
             
             {error && (

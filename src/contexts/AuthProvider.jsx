@@ -11,7 +11,7 @@ export default function AuthProvider({ children }) {
   const [errors, setErrors] = useState(null);
   // const [idCabang , setIdcabang] = useState(null);
   const [tempRegisterData, setTempRegisterData] = useState(null);
-
+  
   const getUser = useCallback(async () => {
     if (!token) return;
 
@@ -30,8 +30,6 @@ export default function AuthProvider({ children }) {
         setUser(null);
         setRole(null);
         setErrors(data.errors || { error: data.error });
-        // localStorage.removeItem("token");
-        // sessionStorage.removeItem("token");
       }
     } catch (error) {
       console.error("Gagal ambil data user:", error);
@@ -39,8 +37,6 @@ export default function AuthProvider({ children }) {
       setUser(null);
       setRole(null);
       setErrors({ error: "Gagal terhubung ke server" });
-      // localStorage.removeItem("token");
-      // sessionStorage.removeItem("token");
     }
   }, [token]);
 

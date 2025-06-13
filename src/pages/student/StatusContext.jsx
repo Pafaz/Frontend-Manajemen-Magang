@@ -11,7 +11,6 @@ export const StatusProvider = ({ children }) => {
   const [profileComplete, setProfileComplete] = useState(JSON.parse(sessionStorage.getItem("profileComplete")) || false);
   const [internshipStatus, setInternshipStatus] = useState("menunggu");
   const [userLoading, setUserLoading] = useState(true);
-  console.log(profileComplete, internshipStatus);
   
   const fetchUserData = async () => {
     try {

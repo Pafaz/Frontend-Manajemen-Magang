@@ -3,11 +3,17 @@ const Footer = () => {
     <footer className="bg-white border-t border-gray-400/[0.5] relative -bottom-10">
       <div className="max-w-7xl mx-auto py-14 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="flex flex-col gap-5">
+           <div className="flex items-center gap-2">
           <img
             src="/assets/img/Logo.png"
-            alt="Logo Hummatech"
-            className="w-44"
+            alt="Logo"
+            className="w-14 transition-all duration-300"
           />
+          <div className="mt-2">
+          <p className="font-bold text-lg -mb-2">Manajemen</p>
+          <p className="font-bold text-lg text-[#0069AB]">Magang</p>
+          </div>
+      </div>
           <p className="text-gray-600 text-sm">
             Phasellus ultricies aliquam volutpat ullamcorper laoreet neque, a
             lacinia curabitur lacinia mollis.
@@ -136,7 +142,7 @@ const Footer = () => {
       </div>
 
       <div className="bg-color-blue text-slate-200 text-sm font-light py-5 text-center relative flex justify-between px-10 items-center">
-        <p>&copy; Semua Hak Cipta 2025 oleh Universitas Trunojoyo Madura x Politeknik Negeri Banyuwangi</p>
+        <p>&copy; Semua Hak Cipta 2025 oleh tim elangprakoso</p>
         <a
           href="#top"
           className="absolute left-1/2 transform -translate-x-1/2 -top-5 bg-color-blue border-4 border-white text-white w-12 h-12 rounded-full shadow-lg flex justify-center items-center"

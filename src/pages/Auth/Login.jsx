@@ -61,9 +61,10 @@ const Login = () => {
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, data);
-
+      
       if (response.data.status === "success") {
-        const { token, role, user } = response.data.data;
+        const { token, role, user, foto_profile } = response.data.data;
+        
         sessionStorage.setItem('nama', user.nama);
         
         if (rememberMe) {
@@ -74,6 +75,8 @@ const Login = () => {
 
         setToken(token);
         setRole(role);
+        localStorage.setItem("foto_profile", foto_profile);
+        localStorage.setItem("location", `/${role}/dashboard`);
         navigate(`/${role}/dashboard`);
       } else {
         setErrors({
@@ -112,7 +115,17 @@ const Login = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="flex justify-start"
       >
-        <img src="/assets/img/Logo.png" alt="Logo" className="w-52" />
+         <div className="flex items-center gap-2">
+          <img
+            src="/assets/img/Logo.png"
+            alt="Logo"
+            className="w-14 transition-all duration-300"
+          />
+          <div className="mt-2">
+          <p className="font-bold text-lg -mb-2">Manajemen</p>
+          <p className="font-bold text-lg text-[#0069AB]">Magang</p>
+          </div>
+      </div>
       </motion.div>
       <motion.div
         initial={{ opacity: 0 }}
@@ -145,7 +158,7 @@ const Login = () => {
             Selamat datang kembali! 👋
           </h1>
           <p className="text-gray-500 text-sm mb-5">
-            Silakan masuk ke akun Anda dan mulai petualanganmu.
+            Silakan masuk ke akun kamu dan mulai petualanganmu.
           </p>
         </div>
 

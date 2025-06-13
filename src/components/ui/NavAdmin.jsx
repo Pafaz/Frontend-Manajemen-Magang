@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Modal from "../Modal";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ const NavAdmin = ({ toggleSidebar, sidebarCollapsed, showToggle }) => {
   const [isTambahCabangModalOpen, setIsTambahCabangModalOpen] = useState(false);
   const [selectedDuration, setSelectedDuration] = useState("2 Bulan");
   const [discount, setDiscount] = useState(10);
-  const { user } = useContext(AuthContext);
+  const { user, setRole, setToken, setUser } = useContext(AuthContext);
   const [verived, setVerived] = useState(null);
   const [idUser, setId] = useState(null);
   const location = useLocation();
@@ -26,7 +26,9 @@ const NavAdmin = ({ toggleSidebar, sidebarCollapsed, showToggle }) => {
   const [cabang, setisCabang] = useState([]);
   const cabangDropdownRef = useRef(null);
   const isActive = (path) => currentPath === path;
-  
+  const navigate = useNavigate();
+  const fotoProfile = localStorage.getItem("foto_profile");
+
   useEffect(() => {
     if (user && user.id) {
       setId(user.id);
@@ -98,6 +100,11 @@ const NavAdmin = ({ toggleSidebar, sidebarCollapsed, showToggle }) => {
           if (response.status === 200) {
             localStorage.removeItem("token");
             sessionStorage.removeItem("token");
+            localStorage.removeItem("foto_profile");
+            localStorage.removeItem("location");
+            setUser(null);
+            setToken(null);
+            setRole(null);
             
             // Show success message before redirecting
             Swal.fire({
@@ -107,7 +114,7 @@ const NavAdmin = ({ toggleSidebar, sidebarCollapsed, showToggle }) => {
               timer: 1500,
               showConfirmButton: false
             }).then(() => {
-              window.location.href = "/auth/login";
+              navigate("/");
             });
           } else {
             Swal.fire({
@@ -283,7 +290,17 @@ const NavAdmin = ({ toggleSidebar, sidebarCollapsed, showToggle }) => {
             )}
           </button>
           :
-                <img src="/assets/img/Logo.png" alt="Logo" className="w-48 mr-7" />
+          <div className="flex items-center mr-10 ">
+          <img
+            src="/assets/img/Logo.png"
+            alt="Logo"
+            className="w-12 transition-all duration-300"
+          />
+          <div className="mt-2">
+          <p className="font-bold text-xs -mb-1">Manajemen</p>
+          <p className="font-bold text-xs text-[#0069AB]">Magang</p>
+          </div>
+      </div>
           
       }
 
@@ -503,9 +520,10 @@ const NavAdmin = ({ toggleSidebar, sidebarCollapsed, showToggle }) => {
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
             <img
-              src="/assets/img/user-img.png"
+              src={!fotoProfile ? "/assets/img/user-img.png" : fotoProfile}
               alt="Profile"
               className="w-8 h-8 rounded-full object-cover"
+              onError={(e) => (e.target.src = "/assets/img/user-img.png")}
             />
             <div className="absolute w-3 h-3 bg-green-500 rounded-full left-6 top-6 border-2 border-white"></div>
             <i className="bi bi-chevron-down text-gray-500"></i>

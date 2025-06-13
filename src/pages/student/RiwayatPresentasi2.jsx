@@ -24,8 +24,6 @@ export default function MeetingScheduleTable() {
           },
         });
 
-        console.log('Full API Response:', response.data); // Debug log
-
         if (response.data.status === "success") {
           // Transform API data to match component expectations
           const transformedData = response.data.data.map((meeting, index) => {
@@ -59,7 +57,6 @@ export default function MeetingScheduleTable() {
               rawData: meeting // Store original data for reference
             };
 
-            console.log('Transformed item:', transformedItem); // Debug log
             return transformedItem;
           });
 
@@ -185,7 +182,8 @@ export default function MeetingScheduleTable() {
     try {
       new URL(string);
       return true;
-    } catch (_) {
+    } catch (err) {
+      console.error(err);
       return false;
     }
   };

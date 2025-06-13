@@ -298,7 +298,7 @@ export default function JobListingPage() {
             onClick={() => handleViewDetail(job.id)}
             aria-label={`Lihat detail lowongan ${job.title} di ${job.company}`}
           >
-            VIEW VACANCY
+            Lihat Lowongan
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               width="14" 

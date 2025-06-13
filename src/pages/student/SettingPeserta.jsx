@@ -35,8 +35,6 @@ const CompanyCard = () => {
           },
         });
 
-        console.log("API Response:", response.data); // Debug log
-
         if (response.data.status === "success") {
           const data = response.data.data;
           

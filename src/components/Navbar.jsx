@@ -8,7 +8,7 @@ const Navbar = () => {
   const [active, setActive] = useState(false);
   const location = useLocation();
   const { user, role, token } = useContext(AuthContext);
-
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -39,15 +39,19 @@ const Navbar = () => {
           : "bg-white shadow-sm py-4"
       }`}
     >
-      <div>
         <Link to={``}>
+      <div className="flex items-center gap-2">
           <img
             src="/assets/img/Logo.png"
             alt="Logo"
-            className="w-48 transition-all duration-300"
+            className="w-14 transition-all duration-300"
           />
-        </Link>
+          <div className="mt-2">
+          <p className="font-bold text-lg -mb-2">Manajemen</p>
+          <p className="font-bold text-lg text-[#0069AB]">Magang</p>
+          </div>
       </div>
+        </Link>
       <div className="flex gap-7 items-center">
         {router_link.map((item, index) => (
           <NavLink

@@ -78,21 +78,30 @@ const PerusahaanLayout = () => {
       label: "Pengaturan",
       link: `/perusahaan/cabang/${namaCabang}/settings-cabang`,
     },
-  ]: [];
+  ] : [];
 
   const footerMenus = ["License", "More Themes", "Documentation", "Support"];
 
-  // useEffect(() => {
-  //   if ((role && role !== "perusahaan") || !token) {
-  //     const redirectTo = localStorage.getItem("location");
-  //     if (redirectTo) {
-  //       navigate(redirectTo);
-  //       localStorage.removeItem("location");
-  //     } else {
-  //       navigate("/");
-  //     }
-  //   }
-  // }, [role]);
+  useEffect(() => {
+    if (!token || (role && role !== "perusahaan")) {
+      const redirectTo = localStorage.getItem("location");
+
+      // Cek apakah location tidak sesuai dengan role
+      if (redirectTo) {
+        if (!redirectTo.startsWith(`/${role}`)) {
+          // Update localStorage dengan lokasi yang sesuai role
+          localStorage.setItem("location", `/${role}/dashboard`);
+          navigate(`/${role}`);
+        } else {
+          navigate(redirectTo);
+        }
+        localStorage.removeItem("location");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [role]);
+
 
   // Fungsi untuk toggle sidebar
   const toggleSidebar = () => {
@@ -103,30 +112,38 @@ const PerusahaanLayout = () => {
     <div className="w-full flex">
       {/* Sidebar hanya muncul jika ada namaCabang */}
       {isCabangRoute && (
-        <div className={`bg-white border-r border-r-slate-300 ${
-          sidebarCollapsed ? "w-[60px]" : "w-[238px]"
-        } h-screen fixed py-4 px-2 z-[50] overflow-y-auto flex flex-col justify-between transition-all duration-300`}>
-          
+        <div className={`bg-white border-r border-r-slate-300 ${sidebarCollapsed ? "w-[60px]" : "w-[238px]"
+          } h-screen fixed py-4 px-2 z-[50] overflow-y-auto flex flex-col justify-between transition-all duration-300`}>
+
           <div>
-            <Link to={`beranda`} className="flex justify-center">
+            <Link to={`beranda`} className="">
               {sidebarCollapsed ? (
-                <img src="/assets/icons/logohumma.svg" alt="Logo" className="w-10 mx-auto" />
+                <img src="/assets/img/Logo.png" alt="Logo" className="w-10 ml-0.5" />
               ) : (
-                <img src="/assets/img/Logo.png" alt="Logo" className="w-48 mx-auto" />
+                <div className="flex items-center ml-1.5 ">
+                  <img
+                    src="/assets/img/Logo.png"
+                    alt="Logo"
+                    className="w-14 transition-all duration-300"
+                  />
+                  <div className="mt-2">
+                    <p className="font-bold text-xs -mb-1">Manajemen</p>
+                    <p className="font-bold text-xs text-[#0069AB]">Magang</p>
+                  </div>
+                </div>
               )}
             </Link>
-            
+
             <div className="flex flex-col gap-3 mt-8">
               {sidebarMenus.map((menu, idx) => (
                 <div key={idx} className="flex flex-col">
                   <Link
                     to={menu.link}
                     className={`${sidebarCollapsed ? "justify-center" : ""} px-4 py-2 rounded-lg flex gap-3 items-center 
-                    ${
-                      location.pathname === menu.link
-                      ? "bg-sky-800 text-white"
-                      : "hover:text-sky-500 hover:bg-sky-50"
-                    }`}
+                    ${location.pathname === menu.link
+                        ? "bg-sky-800 text-white"
+                        : "hover:text-sky-500 hover:bg-sky-50"
+                      }`}
                   >
                     <i className={`bi ${menu.icon} text-lg`}></i>
                     {!sidebarCollapsed && <span className="text-sm">{menu.label}</span>}
@@ -138,7 +155,7 @@ const PerusahaanLayout = () => {
 
           {location.pathname.includes("settings-cabang") && !sidebarCollapsed && (
             <div className="px-4 mt-10 pb-4">
-              <button 
+              <button
                 onClick={() => confirm("Hapus cabang?") && console.log("Cabang dihapus")}
                 className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 text-sm"
               >
@@ -150,20 +167,19 @@ const PerusahaanLayout = () => {
       )}
 
       {/* Main Content */}
-      <div className={`flex-1 ${
-        isCabangRoute ? (sidebarCollapsed ? "ml-[60px]" : "ml-[238px]") : ""
-      } flex flex-col min-h-screen transition-all duration-300`}>
-        
-        <NavAdmin 
-          toggleSidebar={toggleSidebar} 
+      <div className={`flex-1 ${isCabangRoute ? (sidebarCollapsed ? "ml-[60px]" : "ml-[238px]") : ""
+        } flex flex-col min-h-screen transition-all duration-300`}>
+
+        <NavAdmin
+          toggleSidebar={toggleSidebar}
           sidebarCollapsed={sidebarCollapsed}
           showToggle={isCabangRoute}
         />
-        
+
         <div className="flex-grow bg-indigo-50 px-3 pt-5 pb-0">
           <Outlet />
         </div>
-        
+
         <div className="bg-white rounded-t-xl px-5 py-4 w-full flex justify-between">
           <div className="text-slate-400 text-sm">© Copyright 2024</div>
           <div className="flex gap-5">

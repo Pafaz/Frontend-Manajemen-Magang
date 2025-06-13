@@ -136,18 +136,26 @@ const StudentLayout = () => {
     }
   }, [userLoading]);
 
-  // useEffect(() => {
-  //   if ((role && role !== "peserta") || !token) {
-  //     const redirectTo = localStorage.getItem("location");
-  //     if (redirectTo) {
-  //       navigate(redirectTo);
-  //       localStorage.removeItem("location");
-  //     } else {
-  //       console.log('anjay');
-  //       navigate("/");
-  //     }
-  //   }
-  // }, [role]);
+  useEffect(() => {
+  if (!token || (role && role !== "peserta")) {
+    const redirectTo = localStorage.getItem("location");
+
+    // Cek apakah location tidak sesuai dengan role
+    if (redirectTo) {
+      if (!redirectTo.startsWith(`/${role}`)) {
+        // Update localStorage dengan lokasi yang sesuai role
+        localStorage.setItem("location", `/${role}/dashboard`);
+        navigate(`/${role}`);
+      } else {
+        navigate(redirectTo);
+      }
+      localStorage.removeItem("location");
+    } else {
+      navigate("/");
+    }
+  }
+}, [role]);
+
 
   return (
     <div className="w-full flex">

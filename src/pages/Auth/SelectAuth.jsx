@@ -57,6 +57,7 @@ const SelectAuth = () => {
       if (role) {
         setRole(role);
         navigate(`/${role}/dashboard`);
+        localStorage.setItem("location", `/${role}/dashboard`);
         setLoading(false);
         sessionStorage.removeItem('id');
       } else {

@@ -33,13 +33,15 @@ function GoogleCallback() {
           throw new Error(data.message || 'Autentikasi gagal');
         }
 
-        const { user, role } = data.data;
+        const { user, role, token } = data.data;
+        setToken(token);
 
         if (role == null) {
           sessionStorage.setItem('id', user.id);
           navigate("/auth/SelectAuth");
         } else {
           localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('location', `/${role}/dashboard`);
           setRole(role);
           navigate(`/${role}/dashboard`, { replace: true });
         }

@@ -341,7 +341,7 @@ export default function JobListingPage() {
                               className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg text-sm font-medium transition-colors flex items-center"
                               onClick={() => handleViewDetail(job.id)}
                             >
-                              VIEW VACANCY
+                              Lihat Lowongan
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
                                 <path d="M5 12h14M12 5l7 7-7 7"/>
                               </svg>

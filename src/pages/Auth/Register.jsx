@@ -90,7 +90,17 @@ const Register = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="flex justify-start"
       >
-        <img src="/assets/img/Logo.png" alt="Logo" className="w-52" />
+        <div className="flex items-center gap-2">
+          <img
+            src="/assets/img/Logo.png"
+            alt="Logo"
+            className="w-14 transition-all duration-300"
+          />
+          <div className="mt-2">
+          <p className="font-bold text-lg -mb-2">Manajemen</p>
+          <p className="font-bold text-lg text-[#0069AB]">Magang</p>
+          </div>
+      </div>
       </motion.div>
 
       <motion.div

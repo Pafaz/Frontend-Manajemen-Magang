@@ -449,7 +449,7 @@ export default function JobVacancyDetail() {
               <button 
                 className="bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-lg text-xs font-medium transition-colors flex items-center"
               >
-                VIEW VACANCY
+                Lihat Lowongan
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-1">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>

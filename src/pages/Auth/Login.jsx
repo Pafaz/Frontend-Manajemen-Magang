@@ -115,7 +115,7 @@ const Login = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="flex justify-start"
       >
-         <div className="flex items-center gap-2">
+         <div className="flex items-center gap-2 -ml-2">
           <img
             src="/assets/img/Logo.png"
             alt="Logo"
@@ -151,7 +151,7 @@ const Login = () => {
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.4 }}
-        className="w-full max-w-sm absolute z-50 left-35 top-45"
+        className="w-full max-w-sm z-50 relative mt-20"
       >
         <div className="space-y-5 -mt-10">
           <h1 className="text-3xl font-bold text-gray-800">

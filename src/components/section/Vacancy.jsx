@@ -263,7 +263,7 @@ export default function JobVacancyLayout() {
                     </div>
                     <div className="flex justify-end mt-4">
                       <button className="bg-blue-600 text-white px-4 py-2 rounded-md flex items-center text-sm hover:bg-blue-700">
-                        VIEW VACANCY
+                        Lihat Lowongan
                         <ArrowRight size={16} className="ml-2" />
                       </button>
                     </div>

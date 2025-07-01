@@ -105,7 +105,7 @@ export default function ApprovalTable() {
           ids: itemIds,
           status: apiActionStatus,
           status_izin: apiActionStatus,
-          nomor_surat: nomorSuratData[sekolah] || ''
+          no_surat: nomorSuratData[sekolah] || ''
         };
 
         await axios.put(url, payload, {
@@ -350,65 +350,115 @@ export default function ApprovalTable() {
     }
   };
 
-  const handleIndividualAction = async (itemId, frontendActionStatus, type) => {
-    const apiActionStatus = mapFrontendStatusToApi(frontendActionStatus);
-    let url = "";
-    let payload = "";
-    if (type === "pendaftaran") {
-      url = `${API_BASE_URL}/magang/${itemId}`;
-      payload = { status: apiActionStatus };
-    } else if (type === "izin") {
-      url = `${API_BASE_URL}/izin/${itemId}`;
-      payload = { status_izin: apiActionStatus };
+const handleIndividualAction = async (itemId, frontendActionStatus, noSuratParam = null) => {
+  console.log("=== handleIndividualAction called ===");
+  console.log("itemId:", itemId);
+  console.log("frontendActionStatus:", frontendActionStatus);
+  console.log("noSuratParam:", noSuratParam);
+  
+  const apiActionStatus = mapFrontendStatusToApi(frontendActionStatus);
+  console.log("apiActionStatus:", apiActionStatus);
+  
+  // Always determine the type based on activeTab
+  const type = activeTab; // "pendaftaran" or "izin"
+  console.log("activeTab/type:", type);
+  
+  let url = "";
+  let payload = {};
+  
+  if (type === "pendaftaran") {
+    url = `${API_BASE_URL}/magang/${itemId}`;
+    payload = { status: apiActionStatus };
+    
+    // Add no_surat if provided and status is approved
+    if (noSuratParam && frontendActionStatus === "approved") {
+      payload.no_surat = noSuratParam;
+      console.log("✅ no_surat ditambahkan ke payload");
     } else {
-      console.error("Tipe aksi individual tidak diketahui");
-      return;
+      console.log("❌ no_surat TIDAK ditambahkan ke payload");
+      console.log("Alasan - noSuratParam:", noSuratParam);
+      console.log("Alasan - frontendActionStatus:", frontendActionStatus);
     }
-    const token = localStorage.getItem("token");
-    try {
-      const response = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
-      if (!response.ok) {
-        const errorData = await response
-          .json()
-          .catch(() => ({ message: response.statusText }));
-        throw new Error(
-          `HTTP error! status: ${response.status}, message: ${errorData.message}`
-        );
-      }
+  } else if (type === "izin") {
+    url = `${API_BASE_URL}/izin/${itemId}`;
+    payload = { status_izin: apiActionStatus };
+    
+    // Add no_surat if provided and status is approved
+    if (noSuratParam && frontendActionStatus === "approved") {
+      payload.no_surat = noSuratParam;
+      console.log("✅ no_surat ditambahkan ke payload (izin)");
+    }
+  } else {
+    console.error("Tipe aksi individual tidak diketahui");
+    return;
+  }
 
-      if (type === "pendaftaran") {
-        setDataPendaftaran((prevData) =>
-          prevData.map((item) =>
-            item.id === itemId
-              ? { ...item, status: frontendActionStatus }
-              : item
-          )
-        );
-      } else {
-        setDataIzin((prevData) =>
-          prevData.map((item) =>
-            item.id === itemId
-              ? { ...item, status: frontendActionStatus }
-              : item
-          )
-        );
-      }
-      fetchDataPendaftaran();
-      fetchDataIzin();
-      setShowModal(false);
-    } catch (error) {
-      console.error(`Gagal mengupdate item ${itemId}:`, error);
-      alert(`Gagal memperbarui status: ${error.message}`);
+  const token = localStorage.getItem("token");
+  
+  // Debug: Log the final payload and URL
+  console.log("=== FINAL REQUEST DATA ===");
+  console.log("URL:", url);
+  console.log("Payload:", JSON.stringify(payload, null, 2));
+  console.log("Token exists:", !!token);
+  
+  try {
+    console.log("🚀 Mengirim request ke server...");
+    
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+    
+    console.log("📡 Response status:", response.status);
+    console.log("📡 Response ok:", response.ok);
+    
+    if (!response.ok) {
+      const errorData = await response
+        .json()
+        .catch(() => ({ message: response.statusText }));
+      console.error("❌ Error response:", errorData);
+      throw new Error(
+        `HTTP error! status: ${response.status}, message: ${errorData.message}`
+      );
     }
-  };
+
+    const responseData = await response.json();
+    console.log("✅ Success response:", responseData);
+
+    if (type === "pendaftaran") {
+      setDataPendaftaran((prevData) =>
+        prevData.map((item) =>
+          item.id === itemId
+            ? { ...item, status: apiActionStatus }
+            : item
+        )
+      );
+    } else {
+      setDataIzin((prevData) =>
+        prevData.map((item) =>
+          item.id === itemId
+            ? { ...item, status: apiActionStatus }
+            : item
+        )
+      );
+    }
+    
+    console.log("🔄 Refreshing data...");
+    fetchDataPendaftaran();
+    fetchDataIzin();
+    setShowModal(false);
+    console.log("✅ Process completed successfully");
+    
+  } catch (error) {
+    console.error(`❌ Gagal mengupdate item ${itemId}:`, error);
+    alert(`Gagal memperbarui status: ${error.message}`);
+  }
+};
 
   // Function untuk handle filter change
   const handleFilterChange = (filterType, value) => {
@@ -1075,7 +1125,7 @@ export default function ApprovalTable() {
                   cancelButtonText: "Batal",
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    handleIndividualAction(selectedItem.id, "rejected", "pendaftaran");
+                    handleIndividualAction(selectedItem.id, "ditolak");
                   }
                 });
               }}
@@ -1085,32 +1135,62 @@ export default function ApprovalTable() {
               </svg>
               Tolak Pendaftar
             </button>
-
-            {/* Tombol Terima */}
-            <button
-              className="flex items-center gap-2 px-6 py-3 rounded-lg text-green-600 hover:bg-green-50 bg-green-100 font-medium transition-all duration-200 hover:shadow-md"
-              onClick={() => {
-                Swal.fire({
-                  title: "Apakah Anda yakin?",
-                  text: "Anda akan menerima siswa ini.",
-                  icon: "question",
-                  showCancelButton: true,
-                  confirmButtonColor: "#16a34a",
-                  cancelButtonColor: "#6b7280",
-                  confirmButtonText: "Ya, Terima",
-                  cancelButtonText: "Batal",
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    handleIndividualAction(selectedItem.id, "approved", "pendaftaran");
-                  }
-                });
-              }}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Terima Pendaftar
-            </button>
+<button
+  className="flex items-center gap-2 px-6 py-3 rounded-lg text-green-600 hover:bg-green-50 bg-green-100 font-medium transition-all duration-200 hover:shadow-md"
+  onClick={() => {
+    Swal.fire({
+      title: "Terima Pendaftar",
+      html: `
+        <div class="text-left">
+          <p class="mb-4 text-gray-600">Masukkan nomor surat untuk menerima <strong>${selectedItem.user?.nama}</strong></p>
+          <input
+            id="swal-input-no-surat"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            placeholder="Contoh: 001/PKL/2024"
+            type="text"
+          />
+        </div>
+      `,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#16a34a",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Ya, Terima",
+      cancelButtonText: "Batal",
+      preConfirm: () => {
+        const noSurat = document.getElementById('swal-input-no-surat').value.trim();
+        console.log("Input nomor surat:", noSurat); // Debug log
+        if (!noSurat) {
+          Swal.showValidationMessage('Nomor surat harus diisi!');
+          return false;
+        }
+        return noSurat;
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const noSurat = result.value;
+        console.log("Nomor surat yang akan dikirim:", noSurat); // Debug log
+        console.log("Selected item ID:", selectedItem.id); // Debug log
+        
+        // Call handleIndividualAction with the correct parameters
+        handleIndividualAction(selectedItem.id, "approved", noSurat);
+        
+        // Tampilkan pesan sukses
+        Swal.fire({
+          title: 'Berhasil!',
+          text: `Pendaftar berhasil diterima dengan nomor surat: ${noSurat}`,
+          icon: 'success',
+          confirmButtonColor: '#16a34a'
+        });
+      }
+    });
+  }}
+>
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+  </svg>
+  Terima Pendaftar
+</button>
           </div>
         </div>
       </div>
